@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: synistralia-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "route"
+    ingress.kubernetes.io/session-cookie-hash: "sha1"
+spec:
+  rules:
+    - host: synistralia.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: synistralia-prod-service
+            servicePort: 80

@@ -1,0 +1,25 @@
+# This is the backend service
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-lb
+  annotations:
+    service.beta.kubernetes.io/external-traffic: OnlyLocal
+    ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "route"
+    ingress.kubernetes.io/session-cookie-hash: "sha1"
+  labels:
+    app: nginx-ingress-lb
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 104.154.67.91
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+  # - port: 443
+  #   name: https
+  #   targetPort: 443
+  selector:
+    # Selects nginx-ingress-controller pods
+    k8s-app: nginx-ingress-controller
