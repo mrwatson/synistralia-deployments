@@ -7,12 +7,24 @@ metadata:
     ingress.kubernetes.io/affinity: "cookie"
     ingress.kubernetes.io/session-cookie-name: "route"
     ingress.kubernetes.io/session-cookie-hash: "sha1"
+    ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-    - host: synistralia.com
-      http:
+    - http:
         paths:
         - path: /
           backend:
             serviceName: synistralia-prod-service
             servicePort: 80
+  # tls:
+  # - hosts:
+  #   - synistralia.com
+  #   secretName: synistralia-cert
+  # rules:
+    # - host: synistralia.com
+    # - http:
+    #   paths:
+    #   - path: /
+    #     backend:
+    #       serviceName: synistralia-prod-service
+    #       servicePort: 80
